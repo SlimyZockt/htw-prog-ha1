@@ -178,4 +178,19 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("test maximal digit count")
+    void testMaxDigitCount() {
+        var calc = new Calculator();
+
+        pressRandomNubers(calc, 9);
+
+        var out = calc.readScreen();
+        var actual = out.length();
+        var expected = MAX_DECIMAL_COUNT + 2;
+
+        assertEquals(expected, actual);
+
+    }
+
 }

@@ -48,7 +48,16 @@ public class Calculator {
             screen = screen.substring(0, 10);
         }
 
+        if (screen.length() >= 9) {
+            return;
+        }
+        ;
+
         screen = screen + digit;
+        if (screen.length() % 3 == 0) {
+            screen += " ";
+        }
+
     }
 
     /**
@@ -92,7 +101,7 @@ public class Calculator {
 
     enum OPERATION {
         SQR,
-        MOD,
+        PERCENTS,
         ONE_OVER_X,
         PLUS,
         MINUS,
