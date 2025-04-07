@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.checkerframework.checker.units.qual.C;
+
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
@@ -88,7 +90,58 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    void randomActions(Calculator calc, int count) {
+        for (int i = 0; i < count; i++) {
+            int random = (int) (Math.random() * 10) % 3;
+            switch (random) {
+                case 0:
+                    int randomNumber = (int) (Math.random() * 10);
+                    calc.pressDigitKey(randomNumber);
+                    break;
+                case 1:
+                    calc.pressDotKey();
+                    break;
+                case 2:
+                    calc.pressNegativeKey();
+                    break;
+            }
+        }
+    }
 
-    //TODO hier weitere Tests erstellen
+    void pressRandomNubers(Calculator calc, int count) {
+        for (int i = 0; i < count; i++) {
+            int random = (int) (Math.random() * 9);
+
+            calc.pressDigitKey(random);
+        }
+    }
+
+    @Test
+    @DisplayName("screen clears")
+    void testClearScreen() {
+        var calc = new Calculator();
+
+        pressRandomNubers(calc, 10);
+        calc.pressDotKey();
+        pressRandomNubers(calc, 10);
+        calc.pressClearKey();
+
+        var actual = calc.readScreen();
+        String expected = "0";
+
+        System.out.println(actual);
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("Test big numbers")
+    void testBigNumbers() {
+        var calc = new Calculator();
+        pressRandomNubers(calc, 1000);
+        calc.pressBinaryOperationKey("+");
+        pressRandomNubers(calc, 1000);
+    }
+
 }
-
