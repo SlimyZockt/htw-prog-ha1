@@ -44,6 +44,10 @@ public class Calculator {
             screen = "";
         }
 
+        if (screen.contains(".") && screen.length() > 11) {
+            screen = screen.substring(0, 10);
+        }
+
         screen = screen + digit;
     }
 
@@ -84,6 +88,16 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+    }
+
+    enum OPERATION {
+        SQR,
+        MOD,
+        ONE_OVER_X,
+        PLUS,
+        MINUS,
+        DIVIDE,
+        MULTIPLY
     }
 
     /**
@@ -170,9 +184,11 @@ public class Calculator {
             screen = "Error";
         }
         if (screen.endsWith(".0")) {
+            // TODO:Check of by 1
             screen = screen.substring(0, screen.length() - 2);
         }
         if (screen.contains(".") && screen.length() > 11) {
+            // TODO: what is intention
             screen = screen.substring(0, 10);
         }
     }

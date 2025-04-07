@@ -10,6 +10,8 @@ import org.checkerframework.checker.units.qual.C;
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
+    static final int MAX_DECIMAL_COUNT = 10;
+
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
     void testPositiveAddition() {
@@ -129,8 +131,6 @@ class CalculatorTest {
         var actual = calc.readScreen();
         String expected = "0";
 
-        System.out.println(actual);
-
         assertEquals(expected, actual);
 
     }
@@ -142,6 +142,40 @@ class CalculatorTest {
         pressRandomNubers(calc, 1000);
         calc.pressBinaryOperationKey("+");
         pressRandomNubers(calc, 1000);
+    }
+
+    @Test
+    @DisplayName("Removed decimal zero (1.0 -> 1)")
+    void testRemoveZeroAtEnd() {
+        var calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("*");
+        calc.pressDigitKey(1);
+
+        var actual = calc.readScreen();
+        var expected = "1";
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("test maximal decimal count")
+    void testMaxDecimalCount() {
+        var calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        pressRandomNubers(calc, MAX_DECIMAL_COUNT + 10);
+
+        var out = calc.readScreen();
+        var actual = out.length();
+        var expected = MAX_DECIMAL_COUNT + 2;
+
+        assertEquals(expected, actual);
+
     }
 
 }
