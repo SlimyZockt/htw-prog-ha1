@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.checkerframework.checker.units.qual.C;
-
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
     static final int MAX_DECIMAL_COUNT = 10;
+    static final int MAX_DIGIT_COUNT = 9;
 
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
@@ -183,11 +182,11 @@ class CalculatorTest {
     void testMaxDigitCount() {
         var calc = new Calculator();
 
-        pressRandomNubers(calc, 9);
+        pressRandomNubers(calc, 9 + 10);
 
         var out = calc.readScreen();
         var actual = out.length();
-        var expected = MAX_DECIMAL_COUNT + 2;
+        var expected = MAX_DIGIT_COUNT;
 
         assertEquals(expected, actual);
 

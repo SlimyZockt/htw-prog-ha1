@@ -44,19 +44,15 @@ public class Calculator {
             screen = "";
         }
 
-        if (screen.contains(".") && screen.length() > 11) {
-            screen = screen.substring(0, 10);
-        }
-
-        if (screen.length() >= 9) {
+        if (screen.contains(".") && screen.length() >= 12) {
             return;
         }
-        ;
+
+        if (screen.length() >= 9 && !screen.contains(".")) {
+            return;
+        }
 
         screen = screen + digit;
-        if (screen.length() % 3 == 0) {
-            screen += " ";
-        }
 
     }
 
@@ -193,11 +189,9 @@ public class Calculator {
             screen = "Error";
         }
         if (screen.endsWith(".0")) {
-            // TODO:Check of by 1
             screen = screen.substring(0, screen.length() - 2);
         }
         if (screen.contains(".") && screen.length() > 11) {
-            // TODO: what is intention
             screen = screen.substring(0, 10);
         }
     }
